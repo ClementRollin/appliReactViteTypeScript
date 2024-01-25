@@ -3,7 +3,7 @@ import axios from 'axios';
 import UserTable from './components/UserTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 export interface User {
     email: string;
@@ -30,10 +30,6 @@ const App = () => {
         }
     };
 
-    useEffect(() => {
-        fetchUsers().then(() => console.log('Utilisateurs récupérés'));
-    }, []);
-
     const filterByGender = ({gender}: { gender: any }) => {
         setUsers(originalUsers.filter(user => user.gender === gender));
     };
@@ -43,22 +39,23 @@ const App = () => {
     };
 
     const resetUsers = () => {
-        setUsers([...originalUsers]);
+        setUsers([]);
+        setIsDataLoaded(false);
     };
 
     return (
         <div className="container mt-5">
             <h1>Annuaire des utilisateurs</h1>
             <div className="mb-3">
-                <button onClick={() => fetchUsers()} className="btn btn-primary mr-2">Afficher le tableau</button>
+                <button onClick={() => fetchUsers()} className="btn btn-primary mr-2" disabled={isDataLoaded}>Afficher le tableau</button>
                 <button onClick={() => filterByGender({gender: 'female'})} className="btn btn-primary mr-2">Utilisateurs femmes</button>
                 <button onClick={() => filterByGender({gender: 'male'})} className="btn btn-primary mr-2">Utilisateurs hommes</button>
                 <button onClick={() => sortUsersByAge({ascending: true})} className="btn btn-primary mr-2">Utilisateurs les plus jeunes</button>
                 <button onClick={() => sortUsersByAge({ascending: false})} className="btn btn-primary mr-2">Utilisateurs les plus âgés</button>
-                <button onClick={resetUsers} className="btn btn-danger">Réinitialiser</button>
+                <button onClick={resetUsers} className="btn btn-danger" disabled={!isDataLoaded}>Réinitialiser</button>
             </div>
             <p>Nombre d'utilisateurs : <span><strong>{users.length}</strong></span></p>
-            {isDataLoaded ? <UserTable users={users} /> : <p>Chargement des données...</p>}
+            {isDataLoaded ? <UserTable users={users} /> : <div className="alert alert-info"><p>Bonjour, aucun utilisateur n'est visible, n'hésitez pas à afficher le tableau.</p></div>}
         </div>
     );
 };
