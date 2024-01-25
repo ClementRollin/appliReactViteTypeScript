@@ -1,42 +1,103 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+#app {
+  margin-top: 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#tbl-users {
+  margin-top: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#tbl-users img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#tbl-users th:hover {
+  background-color: #f5f5f5;
 }
 
-.card {
-  padding: 2em;
+#tbl-users td {
+  vertical-align: middle;
 }
 
-.read-the-docs {
-  color: #888;
+#tbl-users tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+#tbl-users tbody tr td:first-child {
+  width: 50px;
+}
+
+#tbl-users tbody tr td:nth-child(2) {
+  width: 200px;
+}
+
+#tbl-users tbody tr td:nth-child(3) {
+  width: 200px;
+}
+
+#tbl-users tbody tr td:nth-child(4) {
+  width: 50px;
+}
+
+#tbl-users tbody tr td:nth-child(5) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(6) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(7) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(8) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(9) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(10) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(11) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(12) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(13) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(14) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(15) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(16) {
+  width: 150px;
+}
+
+#tbl-users tbody tr td:nth-child(17) {
+  width: 150px;
+}
+.alignButton{
+  display: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.btn {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }

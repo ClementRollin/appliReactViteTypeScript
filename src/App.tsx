@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import axios from 'axios';
+import UserTable from './components/UserTable';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import {useEffect, useState} from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export interface User {
+    email: string;
+    gender: string;
+    dob: { age: number };
+    name: { first: string; last: string };
+    phone: string;
+    picture: { thumbnail: string };
 }
 
-export default App
+const App = () => {
+    const [users, setUsers] = useState<User[]>([]);
+    const [originalUsers, setOriginalUsers] = useState<User[]>([]);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get('https://randomuser.me/api/?results=20');
+            setOriginalUsers(response.data.results);
+            setUsers(response.data.results);
+            setIsDataLoaded(true);
+        } catch (error) {
+            console.error('Erreur lors de la récupération des utilisateurs', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUsers().then(() => console.log('Utilisateurs récupérés'));
+    }, []);
+
+    const filterByGender = ({gender}: { gender: any }) => {
+        setUsers(originalUsers.filter(user => user.gender === gender));
+    };
+
+    const sortUsersByAge = ({ascending}: { ascending: any }) => {
+        setUsers([...users].sort((a, b) => ascending ? a.dob.age - b.dob.age : b.dob.age - a.dob.age));
+    };
+
+    const resetUsers = () => {
+        setUsers([...originalUsers]);
+    };
+
+    return (
+        <div className="container mt-5">
+            <h1>Annuaire des utilisateurs</h1>
+            <div className="mb-3">
+                <button onClick={() => fetchUsers()} className="btn btn-primary mr-2">Afficher le tableau</button>
+                <button onClick={() => filterByGender({gender: 'female'})} className="btn btn-primary mr-2">Utilisateurs femmes</button>
+                <button onClick={() => filterByGender({gender: 'male'})} className="btn btn-primary mr-2">Utilisateurs hommes</button>
+                <button onClick={() => sortUsersByAge({ascending: true})} className="btn btn-primary mr-2">Utilisateurs les plus jeunes</button>
+                <button onClick={() => sortUsersByAge({ascending: false})} className="btn btn-primary mr-2">Utilisateurs les plus âgés</button>
+                <button onClick={resetUsers} className="btn btn-danger">Réinitialiser</button>
+            </div>
+            <p>Nombre d'utilisateurs : <span><strong>{users.length}</strong></span></p>
+            {isDataLoaded ? <UserTable users={users} /> : <p>Chargement des données...</p>}
+        </div>
+    );
+};
+
+export default App;
