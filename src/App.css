@@ -101,3 +101,22 @@
   margin-bottom: 10px;
   cursor: pointer;
 }
+.table>thead>tr>.age {
+  display: flex;
+  align-items: center;
+}
+.table>thead>tr>.age>select {
+  margin-left: 20px;
+  width: 70%;
+  border: black solid 1px;
+  background-color: transparent;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+.table>thead>tr>th {
+  vertical-align: middle;
+}
+.table>tbody>tr>td {
+  vertical-align: middle;
+}
