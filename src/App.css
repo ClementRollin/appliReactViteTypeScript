@@ -92,7 +92,7 @@
   width: 150px;
 }
 .alignButton{
-  display: wrap;
+  display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }

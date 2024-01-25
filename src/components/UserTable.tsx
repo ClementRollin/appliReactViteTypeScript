@@ -1,5 +1,6 @@
 // src/components/UserTable.tsx
 import { User } from '../App.tsx';
+import React from "react";
 
 interface UserTableProps {
     users: User[];
